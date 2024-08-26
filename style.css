@@ -30,6 +30,10 @@ select#difficulty {
     border: 2px solid currentColor;
 }
 
+button#cta-btn {
+    width: 150px;
+}
+
 /* # LAYOUT */
 #grid {
     height: 70vh;
