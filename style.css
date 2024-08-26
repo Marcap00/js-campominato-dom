@@ -1,0 +1,78 @@
+/* # CSS MARGIN */
+
+* {
+    font-family: 'Poppins';
+}
+
+/* # GENERICS */
+header {
+    height: 70px;
+}
+
+main {
+    height: calc(100vh - 140px);
+    background-color: #031732;
+}
+
+footer {
+    height: 70px;
+}
+
+select#difficulty {
+    cursor: pointer;
+}
+
+/* # UTILITIES */
+.btn.btn-blue,
+select#difficulty {
+    background-color: transparent;
+    color: #031732;
+    border: 2px solid currentColor;
+}
+
+/* # LAYOUT */
+#grid {
+    height: 70vh;
+    width: 70vh;
+}
+
+#grid.grid-cols-10>* {
+    flex-basis: 10%;
+    height: 10%;
+}
+
+#grid.grid-cols-9>* {
+    flex-basis: calc(100% / 9);
+    height: calc(100% / 9);
+}
+
+#grid.grid-cols-7>* {
+    flex-basis: calc(100% / 7);
+    height: calc(100% / 7);
+}
+
+/* # HEADER */
+h1.text-blue {
+    color: #031732;
+}
+
+/* # MAIN */
+/* # SQUARE */
+.square {
+    border: 1px solid #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+.square.clicked {
+    background-color: dodgerblue;
+}
+
+/* # FOOTER */
+.footer-logo {
+    height: 20px;
+    flex-basis: 20px;
+}
