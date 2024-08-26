@@ -76,6 +76,16 @@ function createGrid(rows, cols) {
     }
 }
 
+// Funzione che genera un array di numeri casuali
+function generateRandNumbArr(maxLength, totalCells) {
+    const randomNumbers = [];
+    while(randomNumbers.length < maxLength) {
+        const randomNumber = getRandomNumber(1, totalCells);
+        if (!randomNumbers.includes(randomNumber)) randomNumbers.push(randomNumber);
+    }
+    return randomNumbers;
+}
+
 // # Fase di preparazione
 // Recuperiamo gli elementi dal DOM
 const difficulty = document.getElementById('difficulty');
@@ -90,7 +100,10 @@ console.log(scoreElement);
 console.log(gridElement);
 
 // Preparo le variabili
+let rows;
+let cols;
 let score = 0;
+const maxLength = 16;
 
 
 // # Fase di gestione eventi
@@ -105,21 +118,31 @@ button.addEventListener('click', function () {
     gridElement.classList.remove('grid-cols-10', 'grid-cols-9', 'grid-cols-7');
     // Cambiamo il testo al bottone
     button.innerText = 'Play Again';
-
+    
     // Recuperiamo l'input della difficoltà
     const difficultyValue = difficulty.value;
     console.log(difficultyValue);
-
+    
     if (difficultyValue === 'hard') {
-        createGrid(10, 10);
+        rows = 10;
+        cols = 10;
+        createGrid(rows, cols);
         gridElement.classList.add('grid-cols-10');
     } else if (difficultyValue === 'medium') {
-        createGrid(9, 9);
+        rows = 9;
+        cols = 9;
+        createGrid(rows, cols);
         gridElement.classList.add('grid-cols-9');
     } else if (difficultyValue === 'easy') {
-        createGrid(7, 7);
+        rows = 7;
+        cols = 7;
+        createGrid(rows, cols);
         gridElement.classList.add('grid-cols-7');
     }
+    const totalCells = rows * cols;
+    // Preparo l'array dei numeri casuali
+    const randomNumbers = generateRandNumbArr(maxLength, totalCells);
+    console.log(randomNumbers);
 })
 
 resetButton.addEventListener('click', function () {
