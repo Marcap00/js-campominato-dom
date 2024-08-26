@@ -67,12 +67,17 @@ function createGrid(rows, cols) {
             // Stampiamo in console quale cella abbiamo cliccato
             console.log(`Hai cliccato la cella ${i}`);
             // Impediamo che l'utente continui a cliccare sulla stessa casella
-            if (square.classList.contains('clicked')) return;
+            if (endGame === true || square.classList.contains('clicked')) {
+                console.log(endGame)
+                return;
+            }
             // Verifico se l'utente ha calpestato la bomba
             if (randomNumbers.includes(i)) {
                 square.classList.add('exploded');
-                console.log(`Hai perso!
-Hai totalizzato: ${score} punti`);
+                resultGame.classList.add('text-danger');
+                resultGame.innerText = ('Hai perso!');
+                messageElement.innerText = (`Hai totalizzato: ${score} punti`)
+                endGame = true;
             } 
             else {
                 // Aggiungo la classe clicked al quadrato
@@ -80,15 +85,21 @@ Hai totalizzato: ${score} punti`);
                 // Incremento il punteggio e stampo in pagina
                 scoreElement.innerText = ++score;
             }
+            if (score === maxScore) {
+                resultGame.classList.add('text-success');
+                resultGame.innerText = ('Hai vinto!');
+                messageElement.innerText = ('Hai fatto il massimo del punteggio!');
+                endGame = true;
+            } 
         })
     }
 }
 
 // Funzione che genera un array di numeri casuali
-function generateRandNumbArr(maxLength, totalCells) {
+function generateRandNumbArr(maxLength, totalElements) {
     const randomNumbers = [];
     while(randomNumbers.length < maxLength) {
-        const randomNumber = getRandomNumber(1, totalCells);
+        const randomNumber = getRandomNumber(1, totalElements);
         if (!randomNumbers.includes(randomNumber)) randomNumbers.push(randomNumber);
     }
     return randomNumbers;
@@ -100,6 +111,8 @@ const difficulty = document.getElementById('difficulty');
 const button = document.getElementById('cta-btn');
 const resetButton = document.getElementById('reset-btn');
 const scoreElement = document.getElementById('score');
+const resultGame = document.getElementById('result-game');
+const messageElement = document.getElementById('message');
 const gridElement = document.getElementById('grid');
 console.log(difficulty);
 console.log(button);
@@ -113,11 +126,17 @@ let cols;
 let score = 0;
 const maxLength = 16;
 let randomNumbers;
+let maxScore;
+let endGame = false;
+console.log(endGame)
 
 
 // # Fase di gestione eventi
 // Mettiamo in ascolto il bottone sugli eventi
 button.addEventListener('click', function () {
+    randomNumbers = [];
+    endGame = false;
+    console.log(endGame)
     // Resettiamo lo score
     score = 0;
     scoreElement.innerText = 0;
@@ -148,10 +167,16 @@ button.addEventListener('click', function () {
         createGrid(rows, cols);
         gridElement.classList.add('grid-cols-7');
     }
-    const totalCells = rows * cols;
+    // Calcolo il numero totali di quadrati
+    const totalSquare = rows * cols;
+    console.log(totalSquare)
+    // Calcolo il punteggio massimo
+    maxScore = totalSquare - maxLength;
+    console.log(maxScore);
     // Preparo l'array dei numeri casuali
-    randomNumbers = generateRandNumbArr(maxLength, totalCells);
+    randomNumbers = generateRandNumbArr(maxLength, totalSquare);
     console.log(randomNumbers);
+    console.log(randomNumbers.sort());
 })
 
 resetButton.addEventListener('click', function () {
