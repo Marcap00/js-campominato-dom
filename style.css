@@ -74,6 +74,9 @@ h1.text-blue {
 .square.clicked {
     background-color: dodgerblue;
 }
+.square.exploded {
+    background-color: red;
+}
 
 /* # FOOTER */
 .footer-logo {

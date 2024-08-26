@@ -68,10 +68,18 @@ function createGrid(rows, cols) {
             console.log(`Hai cliccato la cella ${i}`);
             // Impediamo che l'utente continui a cliccare sulla stessa casella
             if (square.classList.contains('clicked')) return;
-            // Aggiungo la classe clicked al quadrato
-            square.classList.add('clicked');
-            // Incremento il punteggio e stampo in pagina
-            scoreElement.innerText = ++score;
+            // Verifico se l'utente ha calpestato la bomba
+            if (randomNumbers.includes(i)) {
+                square.classList.add('exploded');
+                console.log(`Hai perso!
+Hai totalizzato: ${score} punti`);
+            } 
+            else {
+                // Aggiungo la classe clicked al quadrato
+                square.classList.add('clicked');
+                // Incremento il punteggio e stampo in pagina
+                scoreElement.innerText = ++score;
+            }
         })
     }
 }
@@ -104,6 +112,7 @@ let rows;
 let cols;
 let score = 0;
 const maxLength = 16;
+let randomNumbers;
 
 
 // # Fase di gestione eventi
@@ -141,7 +150,7 @@ button.addEventListener('click', function () {
     }
     const totalCells = rows * cols;
     // Preparo l'array dei numeri casuali
-    const randomNumbers = generateRandNumbArr(maxLength, totalCells);
+    randomNumbers = generateRandNumbArr(maxLength, totalCells);
     console.log(randomNumbers);
 })
 
