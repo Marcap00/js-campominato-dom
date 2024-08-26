@@ -53,13 +53,26 @@ function createNode(type, className, content) {
     return node;
 }
 
+function revealSquare (bombs) {
+    const squares = document.querySelectorAll('.square');
+    console.log(squares)
+    for (let i = 0; i < squares.length; i++) {
+        const square = squares[i];
+        square.classList.add('clicked');
+        const squareNumber = i + 1;
+        if (bombs.includes(squareNumber)) {
+            square.classList.add('exploded');
+        }
+    }
+}
+
 // Funzione che crea una griglia
 function createGrid(rows, cols) {
     const cells = rows * cols;
 
     for (let i = 1; i <= cells; i++) {
         // Creiamo i div con classe square e la i come contenuto
-        const square = createNode('div', 'square', i);
+        const square = createNode('div', 'square','');
         // Lo agganciamo alla grid
         gridElement.appendChild(square);
         // Mettiamo in ascolto sugli con il click la cella 
@@ -78,6 +91,7 @@ function createGrid(rows, cols) {
                 resultGame.innerText = ('Hai perso!');
                 messageElement.innerText = (`Hai totalizzato: ${score} punti`)
                 endGame = true;
+                revealSquare(randomNumbers);
             } 
             else {
                 // Aggiungo la classe clicked al quadrato
@@ -90,6 +104,7 @@ function createGrid(rows, cols) {
                 resultGame.innerText = ('Hai vinto!');
                 messageElement.innerText = ('Hai fatto il massimo del punteggio!');
                 endGame = true;
+                revealSquare(randomNumbers);
             } 
         })
     }
