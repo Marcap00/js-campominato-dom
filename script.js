@@ -83,32 +83,31 @@ console.log(button);
 console.log(resetButton);
 console.log(gridElement);
 
-let clickCount = false;
-
 
 
 // # Fase di gestione eventi
 // Mettiamo in ascolto il bottone sugli eventi
-button.addEventListener('click', function (e) {
-    if (!clickCount) {
-        // Recuperiamo l'input della difficoltà
-        const difficultyValue = difficulty.value;
-        console.log(difficultyValue);
+button.addEventListener('click', function () {
+    // Svuotiamo la griglia
+    gridElement.innerHTML = '';
+    // Resettiamo le classi del layout della griglia
+    gridElement.classList.remove('grid-cols-10', 'grid-cols-9', 'grid-cols-7');
+    // Cambiamo il testo al bottone
+    button.innerText = 'Play Again';
 
-        if (difficultyValue === 'hard') {
-            gridElement.classList.add('grid-cols-10');
-            createGrid(10, 10);
-        } else if (difficultyValue === 'medium') {
-            gridElement.classList.add('grid-cols-9');
-            createGrid(9, 9)
-        } else if (difficultyValue === 'easy') {
-            gridElement.classList.add('grid-cols-7');
-            createGrid(7, 7)
-        }
-        clickCount = true;
-    } else {
-        alert('Devi resettare la pagina per creare una nuova griglia');
-        return;
+    // Recuperiamo l'input della difficoltà
+    const difficultyValue = difficulty.value;
+    console.log(difficultyValue);
+
+    if (difficultyValue === 'hard') {
+        createGrid(10, 10);
+        gridElement.classList.add('grid-cols-10');
+    } else if (difficultyValue === 'medium') {
+        createGrid(9, 9);
+        gridElement.classList.add('grid-cols-9');
+    } else if (difficultyValue === 'easy') {
+        createGrid(7, 7);
+        gridElement.classList.add('grid-cols-7');
     }
 })
 
