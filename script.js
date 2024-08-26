@@ -66,8 +66,12 @@ function createGrid(rows, cols) {
         square.addEventListener('click', function () {
             // Stampiamo in console quale cella abbiamo cliccato
             console.log(`Hai cliccato la cella ${i}`);
-            // Aggiungo e tolgo all'occorrenza la classe clicked
-            square.classList.toggle('clicked');
+            // Impediamo che l'utente continui a cliccare sulla stessa casella
+            if (square.classList.contains('clicked')) return;
+            // Aggiungo la classe clicked al quadrato
+            square.classList.add('clicked');
+            // Incremento il punteggio e stampo in pagina
+            scoreElement.innerText = ++score;
         })
     }
 }
@@ -77,17 +81,24 @@ function createGrid(rows, cols) {
 const difficulty = document.getElementById('difficulty');
 const button = document.getElementById('cta-btn');
 const resetButton = document.getElementById('reset-btn');
+const scoreElement = document.getElementById('score');
 const gridElement = document.getElementById('grid');
 console.log(difficulty);
 console.log(button);
 console.log(resetButton);
+console.log(scoreElement);
 console.log(gridElement);
 
+// Preparo le variabili
+let score = 0;
 
 
 // # Fase di gestione eventi
 // Mettiamo in ascolto il bottone sugli eventi
 button.addEventListener('click', function () {
+    // Resettiamo lo score
+    score = 0;
+    scoreElement.innerText = 0;
     // Svuotiamo la griglia
     gridElement.innerHTML = '';
     // Resettiamo le classi del layout della griglia
